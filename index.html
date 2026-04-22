@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Valeria's Birthday</title>
+    <!-- Importación de fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --berry-red: #b33939;
+            --soft-pink: #fbc6d0;
+            --light-pink: #fffafa;
+            --text-brown: #5d4037;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fdf2f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        /* Countdown Timer */
+        .countdown-section {
+            margin: 15px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 15px;
+            border-radius: 20px;
+            border: 1px solid var(--soft-pink);
+        }
+
+        .countdown-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--text-brown);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .timer-box {
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .timer-number {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--berry-red);
+        }
+
+        .timer-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+
+
+  /* Reproductor de Música Flotante */
+        .music-player {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 99;
+        }
+
+        .music-btn {
+            background: white;
+            border: 2px solid var(--soft-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-btn i {
+            color: var(--berry-red);
+            font-size: 1.2rem;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Contenedor principal que simula la pantalla del móvil */
+        .phone-mockup {
+            background-color: white;
+            background-image: url('TU_IMAGEN_DE_FONDO.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            width: 100%;
+            max-width: 400px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            position: relative;
+            border: 10px solid #f8e1e5;
+            padding-bottom: 20px;
+        }
+
+        /* Espaciador superior */
+        .top-spacer {
+            height: 40px;
+        }
+
+        /* Sección Hero */
+        .hero-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 280px;
+            padding: 0 10px;
+            overflow: visible;
+        }
+
+        .main-bow-container {
+            width: 55%;
+            position: absolute;
+            left: -5%;
+            z-index: 1;
+        }
+
+        .main-bow-img {
+            width: 100%;
+            height: auto;
+            transform: rotate(-10deg);
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.05));
+        }
+
+        .hero-text-content {
+            width: 65%;
+            margin-left: auto;
+            text-align: left;
+            z-index: 2;
+            position: relative;
+            padding-right: 15px;
+        }
+
+        .amelia-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-brown);
+            margin-bottom: -15px;
+            margin-left: 10px;
+        }
+
+        .berry-first {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.0rem;
+            color: var(--berry-red);
+            line-height: 0.9;
+            margin: 0;
+            filter: drop-shadow(2px 2px 0px white);
+        }
+
+        .birthday-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-brown);
+            margin-top: -5px;
+            padding-left: 5px;
+        }
+
+        /* Detalles del evento con legibilidad mejorada */
+        .details-container {
+            position: relative;
+            margin: 10px 15px;
+            border-radius: 25px;
+            overflow: hidden;
+            background-image: url('moños.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Capa de contraste para el texto */
+        .details-overlay {
+            background-color: rgba(255, 255, 255, 0); /* Fondo blanco semi-transparente */
+            backdrop-filter: blur(1px); /* Efecto de desenfoque fuerte */
+            -webkit-backdrop-filter: blur(1px);
+            padding: 25px 20px;
+            text-align: center;
+            color: var(--text-brown);
+        }
+
+        .invitation-call {
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .event-details {
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            margin: 10px 0;
+        }
+
+        .date-row {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--berry-red);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .location-info {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .rsvp-info {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .map-section {
+            margin-top: 20px;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 140px;
+            border-radius: 20px;
+            border: 2px solid var(--soft-pink);
+            overflow: hidden;
+            background: white;
+        }
+
+        .btn-confirm {
+            background: var(--berry-red);
+            color: white;
+            border: none;
+            padding: 14px 0;
+            width: 100%;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 20px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(179, 57, 57, 0.3);
+        }
+
+        .btn-confirm:hover {
+            background: #9a2e2e;
+            transform: translateY(-2px);
+        }
+
+        /* Modal de confirmación */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 80%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-mockup">
+        <div class="top-spacer"></div>
+
+        <!-- Hero -->
+        <div class="hero-section">
+            <div class="main-bow-container">
+                <img src="pngwing.com (1).png" 
+                     alt="Moño Rosa Grande" 
+                     class="main-bow-img"
+                     onerror="this.src='https://www.svgrepo.com/show/406649/pink-ribbon.svg'">
+            </div>
+
+            <div class="hero-text-content">
+                <div class="amelia-text">Valeria's</div>
+                <div class="berry-first">twenty-two</div>
+                <div class="birthday-text">BIRTHDAY</div>
+            </div>
+        </div>
+
+         <!-- Contador Regresivo -->
+        <div class="countdown-section">
+            <p class="countdown-title">FALTAN SOLO...</p>
+            <div class="timer-grid" id="countdown">
+                <div class="timer-box">
+                    <span class="timer-number" id="days">00</span>
+                    <span class="timer-label">Días</span>
+                </div>
+                <div class="timer-box">
+                    <span class="timer-number" id="hours">00</span>
+                    <span class="timer-label">Horas</span>
+                </div>
+                <div class="timer-box">
+                    <span class="timer-number" id="minutes">00</span>
+                    <span class="timer-label">Min</span>
+                </div>
+                <div class="timer-box">
+                    <span class="timer-number" id="seconds">00</span>
+                    <span class="timer-label">Seg</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalles con capa de legibilidad -->
+        <div class="details-container">
+            <div class="details-overlay">
+                <div class="invitation-call">VEN Y DIVIERTETE CON NOSOTROS</div>
+
+                <div class="event-details">
+                    <div class="date-row">DOMINGO| 26 DE ABRIL | 2 PM</div>
+                    <div class="location-info">
+                        CHAMIZAL | CIUDAD JUAREZ<br>
+                       
+                    </div>
+                </div>
+
+                <div class="rsvp-info">
+                    <br>
+                    <strong> INFORMES - NANCY</strong>
+                </div>
+
+                <div class="map-section">
+                    <div class="map-frame">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27140.581006769306!2d-106.48318135046033!3d31.75486442756701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e7596eace6b843%3A0x561673374ba25fc!2sChamizal%2C%2032300%20Ju%C3%A1rez%2C%20Chih.!5e0!3m2!1ses-419!2smx!4v1776832541222!5m2!1ses-419!2smx" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                    <button class="btn-confirm" id="confirmBtn">Confirmar Asistencia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de Música -->
+    <div class="music-player">
+        <button class="music-btn" id="musicBtn" title="Reproducir música">
+            <span id="musicIcon">▶</span>
+            <div class="music-waves" id="waves">
+                <div class="wave" style="animation-delay: 0.1s"></div>
+                <div class="wave" style="animation-delay: 0.3s"></div>
+                <div class="wave" style="animation-delay: 0.2s"></div>
+            </div>
+        </button>
+    </div>
+
+    <!-- Audio (Musica suave coquette/piano) -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <h2 style="color: var(--berry-red); font-family: 'Playfair Display', serif;">¡Registro Exitoso!</h2>
+            <p style="margin: 15px 0;">Hemos enviado tu confirmación a Nancy. ¡Nos vemos en la fiesta! 🎀</p>
+            <button class="btn-confirm" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+   
+    <script>
+        // Lógica del Countdown
+        const targetDate = new Date("April 26, 2026 14:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown").innerHTML = "<p style='color:var(--berry-red); font-weight:bold;'>¡ES HOY!</p>";
+            }
+        }
+
+        const timerInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Lógica de Música
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const waves = document.getElementById('waves');
+        let isPlaying = false;
+
+        musicBtn.onclick = () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.style.display = 'inline';
+                waves.classList.remove('active');
+            } else {
+                bgMusic.play();
+                musicIcon.style.display = 'none';
+                waves.classList.add('active');
+            }
+            isPlaying = !isPlaying;
+        };
+
+        // Lógica de Modal
+        const btn = document.getElementById('confirmBtn');
+        const modal = document.getElementById('modal');
+        btn.onclick = () => modal.style.display = 'flex';
+        function closeModal() { modal.style.display = 'none'; }
+    </script>
+</body>
+</html>
